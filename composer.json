@@ -1,0 +1,29 @@
+{
+    "name": "knplabs/knp-minibus-bundle",
+    "description": "Integrate minibus into symfony2",
+    "license": "WTFPL",
+    "authors": [
+        {
+            "name": "David Jegat",
+            "email": "david.jegat@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "~5.4",
+        "symfony/symfony": "~2.4",
+        "knplabs/minibus": "dev-master"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "*",
+        "phpspec/nyan-formatters": "*",
+        "bossa/phpspec2-expect": "*",
+        "docteurklein/funk-spec": "dev-master"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": {"funk": "", "": "src"}
+    }
+}
