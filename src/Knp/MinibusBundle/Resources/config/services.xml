@@ -6,11 +6,14 @@
 >
     <parameters>
         <parameter key="knp_minibus.bus_line.class">Knp\Minibus\Line</parameter>
+        <parameter key="knp_minibus.station.named_station_container.class">Knp\MinibusBundle\Station\NamedStationContainer</parameter>
     </parameters>
 
     <services>
-        <service id="knp_minibus.bus_line" class="%knp_minibus.bus_line.class%">
+        <service id="knp_minibus.bus_line" class="%knp_minibus.bus_line.class%" public="false">
             <argument type="service" id="event_dispatcher" />
+        </service>
+        <service id="knp_minibus.station.named_station_container" class="%knp_minibus.station.named_station_container.class%" public="false">
         </service>
     </services>
 

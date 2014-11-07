@@ -12,7 +12,8 @@
     "require": {
         "php": "~5.4",
         "symfony/symfony": "~2.4",
-        "knplabs/minibus": "dev-master"
+        "knplabs/minibus": "dev-master",
+        "doctrine/inflector": "~1.0@dev"
     },
     "require-dev": {
         "phpspec/phpspec": "*",
