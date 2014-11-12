@@ -7,10 +7,11 @@ use Prophecy\Argument;
 use Knp\MinibusBundle\DependencyInjection\Compiler\PassFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Knp\MinibusBundle\DependencyInjection\Compiler\CompilerPassFactory;
 
 class MinibusBundleSpec extends ObjectBehavior
 {
-    function let(PassFactory $passFactory)
+    function let(CompilerPassFactory $passFactory)
     {
         $this->beConstructedWith($passFactory);
     }
@@ -23,16 +24,5 @@ class MinibusBundleSpec extends ObjectBehavior
     function it_is_a_bundle()
     {
         $this->shouldHaveType('Symfony\Component\HttpKernel\Bundle\Bundle');
-    }
-
-    function it_add_compiler_pass_during_the_build(
-        ContainerBuilder $container,
-        $passFactory,
-        CompilerPassInterface $pass
-    ) {
-        $passFactory->createAutoStationRegistration($this)->willReturn($pass);
-        $container->addCompilerPass($pass)->shouldBeCalled();
-
-        $this->build($container);
     }
 }

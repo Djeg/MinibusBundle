@@ -7,6 +7,6 @@ namespace Knp\MinibusBundle\Exception;
  *
  * @author David Jegat <david.jegat@gmail.com>
  */
-class UndefinedStationAliasException extends \Exception
+class UndefinedStationNameException extends \Exception
 {
 }

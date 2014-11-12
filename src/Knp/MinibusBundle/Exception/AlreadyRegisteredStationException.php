@@ -8,6 +8,6 @@ namespace Knp\MinibusBundle\Exception;
  *
  * @author David Jegat <david.jegat@gmail.com>
  */
-class AlwaysRegisterStationException extends \Exception
+class AlreadyRegisteredStationException extends \Exception
 {
 }

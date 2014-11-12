@@ -4,7 +4,7 @@ namespace Knp\MinibusBundle\Bundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Knp\MinibusBundle\DependencyInjection\Compiler\PassFactory;
+use Knp\MinibusBundle\DependencyInjection\Compiler\CompilerPassFactory;
 
 /**
  * This bundle is the entry point of a minibus application. You can use
@@ -16,23 +16,15 @@ use Knp\MinibusBundle\DependencyInjection\Compiler\PassFactory;
 class MinibusBundle extends Bundle
 {
     /**
-     * @var PassFactory $passFactory
+     * @var CompilerPassFactory $passFactory
      */
     private $passFactory;
 
     /**
-     * @param PassFactory $passFactory
+     * @param CompilerPassFactory $passFactory
      */
-    public function __construct(PassFactory $passFactory)
+    public function __construct(CompilerPassFactory $passFactory)
     {
         $this->passFactory = $passFactory;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function build(ContainerBuilder $container)
-    {
-        $container->addCompilerPass($this->passFactory->createAutoStationRegistration($this));
     }
 }

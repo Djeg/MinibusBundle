@@ -13,20 +13,13 @@ use Knp\MinibusBundle\DependencyInjection\DefinitionFactory;
  *
  * @author David Jegat <david.jegat@gmail.com>
  */
-class PassFactory
+class CompilerPassFactory
 {
     /**
-     * @param Bundle            $bundle
-     * @param ClassFinder       $finder
-     * @param DefinitionFactory $definitionFactory
-     *
      * @return AutoRegisterStationPass
      */
-    public function createAutoStationRegistration(
-        Bundle            $bundle,
-        ClassFinder       $finder = null,
-        DefinitionFactory $definitionFactory = null
-    ) {
-        return new AutoRegisterStationPass($bundle, $finder, $definitionFactory);
+    public function createStationRegistration()
+    {
+        return new RegisterStationPass;
     }
 }

@@ -5,15 +5,50 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <parameters>
-        <parameter key="knp_minibus.bus_line.class">Knp\Minibus\Line</parameter>
-        <parameter key="knp_minibus.station.named_station_container.class">Knp\MinibusBundle\Station\NamedStationContainer</parameter>
+        <parameter key="knp_minibus.station_registry.class">Knp\MinibusBundle\Registry\StationRegistry</parameter>
+        <parameter key="knp_minibus.path.bundle_path_resolver.class">Knp\MinibusBundle\Path\BundlePathResolver</parameter>
+        <parameter key="knp_minibus.routing.reader.yaml_resource_reader.class">Knp\MinibusBundle\Routing\Reader\YamlResourceReader</parameter>
+        <parameter key="knp_minibus.routing.minibus_routing_loader.class">Knp\MinibusBundle\Routing\MinibusRoutingLoader</parameter>
+
+        <!-- routing mapper parameters -->
+        <parameter key="knp_minibus.routing.mapper.host_scheme_and_condition_mapper.class">Knp\MinibusBundle\Routing\Mapper\HostSchemeAndConditionMapper</parameter>
+        <parameter key="knp_minibus.routing.mapper.defaults_mapper.class">Knp\MinibusBundle\Routing\Mapper\DefaultsMapper</parameter>
+        <parameter key="knp_minibus.routing.mapper.requirements_mapper.class">Knp\MinibusBundle\Routing\Mapper\RequirementsMapper</parameter>
     </parameters>
 
     <services>
-        <service id="knp_minibus.bus_line" class="%knp_minibus.bus_line.class%" public="false">
-            <argument type="service" id="event_dispatcher" />
+        <service id="knp_minibus.station_registry" class="%knp_minibus.station_registry.class%">
         </service>
-        <service id="knp_minibus.station.named_station_container" class="%knp_minibus.station.named_station_container.class%" public="false">
+
+        <service id="knp_minibus.path.bundle_path_resolver" class="%knp_minibus.path.bundle_path_resolver.class%">
+            <argument>%kernel.bundles%</argument>
+        </service>
+
+        <service id="knp_minibus.routing.reader.yaml_resource_reader" class="%knp_minibus.routing.reader.yaml_resource_reader.class%" public="false">
+            <argument type="service" id="knp_minibus.path.bundle_path_resolver"/>
+        </service>
+
+        <!-- routing mappers services -->
+        <service id="knp_minibus.routing.mapper.host_scheme_and_condition_mapper" class="%knp_minibus.routing.mapper.host_scheme_and_condition_mapper.class%" public="false">
+        </service>
+        <service id="knp_minibus.routing.mapper.defaults_mapper" class="%knp_minibus.routing.mapper.defaults_mapper.class%" public="false">
+        </service>
+        <service id="knp_minibus.routing.mapper.requirements_mapper" class="%knp_minibus.routing.mapper.requirements_mapper.class%" public="false">
+        </service>
+
+        <!-- routing loader -->
+        <service id="knp_minibus.routing.minibus_routing_loader" class="%knp_minibus.routing.minibus_routing_loader.class%" public="false">
+            <argument type="service" id="knp_minibus.routing.reader.yaml_resource_reader"/>
+            <call method="addMapper">
+                <argument type="service" id="knp_minibus.routing.mapper.host_scheme_and_condition_mapper"/>
+            </call>
+            <call method="addMapper">
+                <argument type="service" id="knp_minibus.routing.mapper.defaults_mapper"/>
+            </call>
+            <call method="addMapper">
+                <argument type="service" id="knp_minibus.routing.mapper.requirements_mapper"/>
+            </call>
+            <tag name="routing.loader"/>
         </service>
     </services>
 

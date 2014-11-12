@@ -31,6 +31,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = $this->builderFactory->create();
+        $root = $treeBuilder->root('knp_minibus');
 
         return $treeBuilder;
     }

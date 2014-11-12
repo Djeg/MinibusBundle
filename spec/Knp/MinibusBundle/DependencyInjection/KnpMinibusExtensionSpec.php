@@ -45,7 +45,7 @@ class KnpMinibusExtensionSpec extends ObjectBehavior
         $locatorFactory->create(Argument::any())->willReturn($locator);
         $loaderFactory->create($container, $locator)->willReturn($loader);
 
-        $processor->processConfiguration($configuration, ['configuration'])->willReturn(['processed configuration']);
+        $processor->processConfiguration($configuration, ['configuration'])->willReturn([]);
 
         $loader->load('services.xml')->shouldBeCalled();
 
