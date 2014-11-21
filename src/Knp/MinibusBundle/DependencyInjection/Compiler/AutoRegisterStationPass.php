@@ -65,9 +65,14 @@ class AutoRegisterStationPass implements CompilerPassInterface
         $bundleAlias = $this->deduceBundleAlias($this->bundle);
 
         foreach ($reflections as $reflection) {
-            $definition  = $this->definitionFactory->create($reflection->getName());
             $alias       = $this->deduceStationAlias($reflection);
             $serviceName = $this->deduceServiceName($bundleAlias, $this->bundle, $reflection);
+
+            if ($container->hasDefinition($serviceName)) {
+                continue;
+            }
+
+            $definition  = $this->definitionFactory->create($reflection->getName());
 
             $definition->addTag('knp_minibus.station', [
                 'alias' => sprintf('%s%s', $bundleAlias, $alias)

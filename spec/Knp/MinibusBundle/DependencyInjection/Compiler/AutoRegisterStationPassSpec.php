@@ -54,6 +54,9 @@ class AutoRegisterStationPassSpec extends ObjectBehavior
         $stationReflectionTwo->getShortName()->willReturn('MySecondStation');
         $extension->getAlias()->willReturn('some_bundle');
 
+        $container->hasDefinition('some_bundle.station.my_first')->willReturn(false);
+        $container->hasDefinition('some_bundle.station.sub.my_second')->willReturn(false);
+
         $definitionFactory->create('Some\\Bundle\\Station\\MyFirstStation')->willReturn($firstDefinition);
         $definitionFactory->create('Some\\Bundle\\Station\\Sub\\MySecondStation')->willReturn($secondDefinition);
 
