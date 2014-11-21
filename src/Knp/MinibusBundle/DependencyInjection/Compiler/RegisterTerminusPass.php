@@ -42,8 +42,8 @@ class RegisterTerminusPass implements CompilerPassInterface
         foreach ($taggedServiceIds as $id => $tagAttributes) {
             $name      = null;
             foreach ($tagAttributes as $attributes) {
-                if (isset($attributes['name'])) {
-                    $name = $attributes['name'];
+                if (isset($attributes['alias'])) {
+                    $name = $attributes['alias'];
                     break;
                 }
             }
@@ -52,7 +52,7 @@ class RegisterTerminusPass implements CompilerPassInterface
 
             if (null === $name) {
                 throw new UndefinedTerminusNameException(sprintf(
-                    'The service "%s" is tagged as a minibus terminus but does not have a name :-(.',
+                    'The service "%s" is tagged as a minibus terminus but does not have an alias :-(.',
                     $id
                 ));
             }

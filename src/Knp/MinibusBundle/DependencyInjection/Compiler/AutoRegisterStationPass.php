@@ -3,7 +3,7 @@
 namespace Knp\MinibusBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Knp\MinibusBundle\Finder\ClassFinder;
 use Knp\MinibusBundle\DependencyInjection\DefinitionFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -38,13 +38,13 @@ class AutoRegisterStationPass implements CompilerPassInterface
      * @param DefinitionFactory $definitionFactory
      */
     public function __construct(
-        Bundle $bundle,
+        BundleInterface $bundle,
         ClassFinder $finder = null,
         DefinitionFactory $definitionFactory = null
     ) {
         $this->bundle            = $bundle;
-        $this->finder            = $finder;
-        $this->definitionFactory = $definitionFactory;
+        $this->finder            = $finder ?: new ClassFinder;
+        $this->definitionFactory = $definitionFactory ?: new DefinitionFactory;
     }
 
     /**
@@ -57,9 +57,9 @@ class AutoRegisterStationPass implements CompilerPassInterface
         }
 
         $reflections = $this->finder->findImplementation(
+            'Knp\Minibus\Station',
             sprintf('%s/Station', $this->bundle->getPath()),
-            sprintf('%s\\Station', $this->bundle->getNamespace()),
-            'Knp\Minibus\Station'
+            sprintf('%s\\Station', $this->bundle->getNamespace())
         );
 
         $bundleAlias = $this->deduceBundleAlias($this->bundle);
@@ -70,7 +70,7 @@ class AutoRegisterStationPass implements CompilerPassInterface
             $serviceName = $this->deduceServiceName($bundleAlias, $this->bundle, $reflection);
 
             $definition->addTag('knp_minibus.station', [
-                'alias' => sprintf('%s.%s', $bundleAlias, $alias)
+                'alias' => sprintf('%s%s', $bundleAlias, $alias)
             ]);
 
             $container->setDefinition($serviceName, $definition);
@@ -84,7 +84,18 @@ class AutoRegisterStationPass implements CompilerPassInterface
      */
     private function deduceStationAlias(\ReflectionClass $reflection)
     {
-        return Inflector::tableize(str_replace('Station', '', $reflection->getShortName()));
+        $baseNamespace  = $this->bundle->getNamespace() . '\\Station';
+        $addedNamespace = str_replace($baseNamespace, '', $reflection->getName());
+
+        $explodedNamespace = explode('\\', $addedNamespace);
+
+        $formatedAlias = [];
+
+        foreach ($explodedNamespace as $part) {
+            $formatedAlias[] = Inflector::tableize(str_replace('Station', '', $part));
+        }
+
+        return implode('.', $formatedAlias);
     }
 
     /**
@@ -92,7 +103,7 @@ class AutoRegisterStationPass implements CompilerPassInterface
      *
      * @return string
      */
-    private function deduceBundleAlias(Bundle $bundle)
+    private function deduceBundleAlias(BundleInterface $bundle)
     {
         if (null !== $extension = $bundle->getContainerExtension()) {
             return $extension->getAlias();
@@ -108,7 +119,7 @@ class AutoRegisterStationPass implements CompilerPassInterface
      *
      * @return string
      */
-    private function deduceServiceName($bundleAlias, Bundle $bundle, \ReflectionClass $reflection)
+    private function deduceServiceName($bundleAlias, BundleInterface  $bundle, \ReflectionClass $reflection)
     {
         $explodedName = explode('\\', $reflection->getName());
         $members      = [];

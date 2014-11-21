@@ -20,7 +20,7 @@ class DefaultsMapper implements RouteMapper
             '_line'                   => $attributes['line'],
             '_terminus'               => $attributes['terminus'],
             '_format'                 => $attributes['format'],
-            '_controller'             => 'knp_minibus.line.line_launcher:launch'
+            '_controller'             => 'knp_minibus.line.http_line_launcher:launch'
         ];
 
         $route->setDefaults(array_merge($attributes['defaults'], $defaults));

@@ -23,8 +23,15 @@ class MinibusBundle extends Bundle
     /**
      * @param CompilerPassFactory $passFactory
      */
-    public function __construct(CompilerPassFactory $passFactory)
+    public function __construct(CompilerPassFactory $passFactory = null)
     {
-        $this->passFactory = $passFactory;
+        $this->passFactory = $passFactory ?: new CompilerPassFactory;
+    }
+
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass($this->passFactory->createAutoStationRegistration($this));
     }
 }

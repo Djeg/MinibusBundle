@@ -5,6 +5,7 @@ namespace Knp\MinibusBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Knp\MinibusBundle\DependencyInjection\Compiler\CompilerPassFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 
 /**
  * The famous minibus in one bundle o_O.
@@ -33,6 +34,7 @@ class KnpMinibusBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass($this->compilerPassFactory->createStationRegistration());
+        $container->addCompilerPass($this->compilerPassFactory->createStationRegistration(), PassConfig::TYPE_OPTIMIZE);
+        $container->addCompilerPass($this->compilerPassFactory->createTerminusRegistration(), PassConfig::TYPE_OPTIMIZE);
     }
 }

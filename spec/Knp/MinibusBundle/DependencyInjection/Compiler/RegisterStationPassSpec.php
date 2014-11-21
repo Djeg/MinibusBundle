@@ -45,7 +45,7 @@ class RegisterStationPassSpec extends ObjectBehavior
 
         $container->findTaggedServiceIds('knp_minibus.station')->willReturn([
             'some.station' => [
-                ['name' => 'some_station'],
+                ['alias' => 'some_station'],
             ]
         ]);
 

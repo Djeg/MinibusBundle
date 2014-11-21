@@ -45,7 +45,7 @@ class AutoRegisterStationPassSpec extends ObjectBehavior
         $bundle->getNamespace()->willReturn('Some\\Bundle');
         $bundle->getContainerExtension()->willReturn($extension);
         $classFinder
-            ->findImplementation('/Some/Bundle/Station', 'Some\\Bundle\\Station', 'Knp\Minibus\Station')
+            ->findImplementation('Knp\Minibus\Station', '/Some/Bundle/Station', 'Some\\Bundle\\Station')
             ->willReturn([$stationReflectionOne, $stationReflectionTwo])
         ;
         $stationReflectionOne->getName()->willReturn('Some\\Bundle\\Station\\MyFirstStation');
@@ -58,7 +58,7 @@ class AutoRegisterStationPassSpec extends ObjectBehavior
         $definitionFactory->create('Some\\Bundle\\Station\\Sub\\MySecondStation')->willReturn($secondDefinition);
 
         $firstDefinition->addTag('knp_minibus.station', ['alias' => 'some_bundle.my_first'])->shouldBeCalled();
-        $secondDefinition->addTag('knp_minibus.station', ['alias' => 'some_bundle.my_second'])->shouldBeCalled();
+        $secondDefinition->addTag('knp_minibus.station', ['alias' => 'some_bundle.sub.my_second'])->shouldBeCalled();
 
         $container->setDefinition('some_bundle.station.my_first', $firstDefinition)->shouldBeCalled();
         $container->setDefinition('some_bundle.station.sub.my_second', $secondDefinition)->shouldBeCalled();

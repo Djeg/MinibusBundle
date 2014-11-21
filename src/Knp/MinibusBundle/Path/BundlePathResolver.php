@@ -34,7 +34,7 @@ class BundlePathResolver
     public function __construct(array $bundles, ReflectionClassFactory $reflectionFactory = null)
     {
         $this->bundles           = $bundles;
-        $this->reflectionFactory = $reflectionFactory;
+        $this->reflectionFactory = $reflectionFactory ?: new ReflectionClassFactory;
     }
 
     /**

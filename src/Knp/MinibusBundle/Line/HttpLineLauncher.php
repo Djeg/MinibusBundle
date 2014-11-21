@@ -4,10 +4,10 @@ namespace Knp\MinibusBundle\Line;
 
 use Knp\MinibusBundle\Registry\StationRegistry;
 use Knp\Minibus\Line;
-use Knp\MinibusBundle\Exception\InvalidLineException;
 use Knp\MinibusBundle\Minibus\MinibusFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\MinibusBundle\Registry\TerminusRegistry;
 
 /**
  * Create and launch an http line.
@@ -20,6 +20,11 @@ class HttpLineLauncher
      * @var StationRegistry $stationRegistry
      */
     private $stationRegistry;
+
+    /**
+     * @var TerminusRegistry $terminusRegistry
+     */
+    private $terminusRegistry;
 
     /**
      * @var Line $line
@@ -38,38 +43,35 @@ class HttpLineLauncher
      */
     public function __construct(
         StationRegistry $stationRegistry,
+        TerminusRegistry $terminusRegistry,
         Line $line,
         MinibusFactory $minibusFactory = null
     ) {
-        $this->stationRegistry = $stationRegistry;
-        $this->line            = $line;
-        $this->minibusFactory  = $minibusFactory ?: new MinibusFactory;
+        $this->stationRegistry  = $stationRegistry;
+        $this->terminusRegistry = $terminusRegistry;
+        $this->line             = $line;
+        $this->minibusFactory   = $minibusFactory ?: new MinibusFactory;
     }
 
     /**
      * @param Request $request
-     *
-     * @throws InvalidLineException
      *
      * @return Response
      */
     public function launch(Request $request)
     {
         $line     = $request->attributes->get('_line');
+        $terminus = $request->attributes->get('_terminus');
         $minibus  = $this->minibusFactory->createHttpMinibus($request);
-
-        if (null === $line or !is_array($line)) {
-            throw new InvalidLineException(sprintf(
-                'The line for the route "%s" is not in a valid format.
-                Accepted format is a key => value array with station name as
-                key and some configuration as a value',
-                $request->attributes->get('_route')
-            ));
-        }
 
         foreach ($line as $name => $configuration) {
             $station = $this->stationRegistry->retrieve($name);
-            $this->line->addStation($station);
+            $this->line->addStation($station, $configuration);
+        }
+
+        foreach ($terminus as $name => $configuration) {
+            $terminus = $this->terminusRegistry->retrieve($name);
+            $this->line->setTerminus($terminus, $configuration);
         }
 
         $result = $this->line->lead($minibus);

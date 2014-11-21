@@ -43,15 +43,15 @@ class RegisterStationPass implements CompilerPassInterface
             $reference = $this->referenceFactory->create($id);
             $name      = null;
             foreach ($tagAttributes  as $attributes) {
-                if (isset($attributes['name'])) {
-                    $name = $attributes['name'];
+                if (isset($attributes['alias'])) {
+                    $name = $attributes['alias'];
                     break;
                 }
             }
 
             if (null === $name) {
                 throw new UndefinedStationNameException(sprintf(
-                    'The service "%s" is tagged as a minibus station but does not have a name :-(.',
+                    'The service "%s" is tagged as a minibus station but does not have an alias :-(.',
                     $id
                 ));
             }

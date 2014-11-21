@@ -15,6 +15,14 @@
         <parameter key="knp_minibus.routing.mapper.host_scheme_and_condition_mapper.class">Knp\MinibusBundle\Routing\Mapper\HostSchemeAndConditionMapper</parameter>
         <parameter key="knp_minibus.routing.mapper.defaults_mapper.class">Knp\MinibusBundle\Routing\Mapper\DefaultsMapper</parameter>
         <parameter key="knp_minibus.routing.mapper.requirements_mapper.class">Knp\MinibusBundle\Routing\Mapper\RequirementsMapper</parameter>
+
+        <!-- terminus -->
+        <parameter key="knp_minibus.terminus.twig_template_terminus.class">Knp\Minibus\Terminus\TwigTemplateTerminus</parameter>
+        <parameter key="knp_minibus.terminus.jms_serializer_terminus.class">Knp\Minibus\Terminus\JmsSerializerTerminus</parameter>
+
+        <!-- lines -->
+        <parameter key="knp_minibus.line.class">Knp\Minibus\Simple\Line</parameter>
+        <parameter key="knp_minibus.line.http_line_launcher.class">Knp\MinibusBundle\Line\HttpLineLauncher</parameter>
     </parameters>
 
     <services>
@@ -52,6 +60,26 @@
                 <argument type="service" id="knp_minibus.routing.mapper.requirements_mapper"/>
             </call>
             <tag name="routing.loader"/>
+        </service>
+
+        <!-- default terminus -->
+        <service id="knp_minibus.terminus.twig_template_terminus" class="%knp_minibus.terminus.twig_template_terminus.class%" public="false">
+            <argument type="service" id="twig" />
+            <tag name="knp_minibus.terminus" alias="twig_template" />
+        </service>
+        <service id="knp_minibus.terminus.jms_serializer_terminus" class="%knp_minibus.terminus.jms_serializer_terminus.class%" public="false">
+            <argument type="service" id="jms_serializer" />
+            <tag name="knp_minibus.terminus" alias="jms_serializer" />
+        </service>
+
+        <!-- lines -->
+        <service id="knp_minibus.line" class="%knp_minibus.line.class%">
+            <argument type="service" id="event_dispatcher" />
+        </service>
+        <service id="knp_minibus.line.http_line_launcher" class="%knp_minibus.line.http_line_launcher.class%">
+            <argument type="service" id="knp_minibus.station_registry" />
+            <argument type="service" id="knp_minibus.terminus_registry" />
+            <argument type="service" id="knp_minibus.line" />
         </service>
     </services>
 

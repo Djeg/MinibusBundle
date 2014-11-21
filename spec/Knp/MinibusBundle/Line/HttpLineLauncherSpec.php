@@ -12,12 +12,14 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Knp\Minibus\Station;
 use Knp\Minibus\Http\HttpMinibus;
 use Symfony\Component\HttpFoundation\Response;
+use Knp\MinibusBundle\Registry\TerminusRegistry;
+use Knp\Minibus\Terminus\Terminus;
 
 class HttpLineLauncherSpec extends ObjectBehavior
 {
-    function let(StationRegistry $registry, Line $line, MinibusFactory $factory)
+    function let(StationRegistry $stationRegistry, TerminusRegistry $terminusRegistry, Line $line, MinibusFactory $factory)
     {
-        $this->beConstructedWith($registry, $line, $factory);
+        $this->beConstructedWith($stationRegistry, $terminusRegistry, $line, $factory);
     }
 
     function it_is_initializable()
@@ -28,21 +30,30 @@ class HttpLineLauncherSpec extends ObjectBehavior
     function it_launch_a_minibus_line(
         Request $request,
         ParameterBag $attributes,
-        $registry,
+        $stationRegistry,
+        $terminusRegistry,
         $line,
         $factory,
         Station $station,
         HttpMinibus $minibus,
-        Response $response
+        Response $response,
+        Terminus $terminus
     ) {
         $request->attributes = $attributes;
         $attributes->get('_line')->willReturn([
             'some_station' => ['some configuration']
         ]);
-        $registry->retrieve('some_station')->willReturn($station);
+        $attributes->get('_terminus')->willReturn([
+            'a terminus' => ['some configuration']
+        ]);
+
+        $stationRegistry->retrieve('some_station')->willReturn($station);
+        $terminusRegistry->retrieve('a terminus')->willReturn($terminus);
+
         $factory->createHttpMinibus($request)->willReturn($minibus);
 
-        $line->addStation($station)->shouldBeCalled();
+        $line->addStation($station, ['some configuration'])->shouldBeCalled();
+        $line->setTerminus($terminus, ['some configuration'])->shouldBeCalled();
 
         $line->lead($minibus)->willReturn('The result');
         $minibus->getResponse()->willReturn($response);

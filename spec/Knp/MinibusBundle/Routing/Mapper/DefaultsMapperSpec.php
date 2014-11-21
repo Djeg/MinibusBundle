@@ -21,7 +21,7 @@ class DefaultsMapperSpec extends ObjectBehavior
     function it_map_the_route_defaults(Route $route)
     {
         $route->setDefaults([
-            '_controller' => 'knp_minibus.line.line_launcher:launch',
+            '_controller' => 'knp_minibus.line.http_line_launcher:launch',
             '_line'       => ['some line'],
             '_terminus'   => ['some terminus'],
             '_format'     => 'html',

@@ -63,7 +63,7 @@ class RegisterTerminusPassSpec extends ObjectBehavior
         $container->getDefinition('knp_minibus.terminus_registry')->willReturn($definition);
 
         $container->findTaggedServiceIds('knp_minibus.terminus')->willReturn([
-            'terminus_service' => [['name' => 'some terminus']],
+            'terminus_service' => [['alias' => 'some terminus']],
         ]);
 
         $factory->create('terminus_service')->willReturn($reference);
