@@ -9,11 +9,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class ConfigurationSpec extends ObjectBehavior
 {
-    function let(TreeBuilderFactory $factory)
-    {
-        $this->beConstructedWith($factory);
-    }
-
     function it_is_initializable()
     {
         $this->shouldHaveType('Knp\MinibusBundle\DependencyInjection\Configuration');
@@ -24,11 +19,8 @@ class ConfigurationSpec extends ObjectBehavior
         $this->shouldHaveType('Symfony\Component\Config\Definition\ConfigurationInterface');
     }
 
-    function it_configure_and_return_a_tree_builder($factory)
+    function it_configure_and_return_a_tree_builder()
     {
-        $treeBuilder = new TreeBuilder;
-        $factory->create()->willReturn($treeBuilder);
-
-        $this->getConfigTreeBuilder()->shouldReturn($treeBuilder);
+        $this->getConfigTreeBuilder()->shouldHaveType('Symfony\Component\Config\Definition\Builder\TreeBuilder');
     }
 }

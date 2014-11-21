@@ -6,6 +6,7 @@
 >
     <parameters>
         <parameter key="knp_minibus.station_registry.class">Knp\MinibusBundle\Registry\StationRegistry</parameter>
+        <parameter key="knp_minibus.terminus_registry.class">Knp\MinibusBundle\Registry\TerminusRegistry</parameter>
         <parameter key="knp_minibus.path.bundle_path_resolver.class">Knp\MinibusBundle\Path\BundlePathResolver</parameter>
         <parameter key="knp_minibus.routing.reader.yaml_resource_reader.class">Knp\MinibusBundle\Routing\Reader\YamlResourceReader</parameter>
         <parameter key="knp_minibus.routing.minibus_routing_loader.class">Knp\MinibusBundle\Routing\MinibusRoutingLoader</parameter>
@@ -18,6 +19,8 @@
 
     <services>
         <service id="knp_minibus.station_registry" class="%knp_minibus.station_registry.class%">
+        </service>
+        <service id="knp_minibus.terminus_registry" class="%knp_minibus.terminus_registry.class%">
         </service>
 
         <service id="knp_minibus.path.bundle_path_resolver" class="%knp_minibus.path.bundle_path_resolver.class%">

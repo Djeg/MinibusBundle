@@ -7,6 +7,7 @@ use Knp\MinibusBundle\Yaml\YamlParser;
 use Knp\MinibusBundle\Exception\MisstatedRouteException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 
 /**
  * It read a yaml routing ressource and also resolve the content.
@@ -94,6 +95,41 @@ class YamlResourceReader
                 'scheme'       => ['string', 'null'],
                 'defaults'     => 'array',
                 'requirements' => 'array'
+            ])
+            ->setNormalizers([
+                'line' => function (Options $options, $lines) {
+                    if (!is_array($lines)) {
+                        return [$lines => []];
+                    }
+
+                    $normalizedLine = [];
+
+                    foreach ($lines as $name => $configuration) {
+                        $normalizedLine[$name] = is_array($configuration) ?
+                            $configuration :
+                            (array)$configuration
+                        ;
+                    }
+
+                    return $normalizedLine;
+                },
+                'terminus' => function (Options $option, $terminus) {
+                    if (!is_array($terminus)) {
+                        throw new InvalidArgumentException('A terminus must be an array.');
+                    }
+
+                    $terminusName = null;
+                    $config       = null;
+                    foreach ($terminus as $name => $configuration) {
+                           $terminusName = $name;
+                           $config       = is_array($configuration) ?
+                               $configuration :
+                               []
+                           ;
+                    }
+
+                    return [$terminusName => $config];
+                }
             ])
         ;
 

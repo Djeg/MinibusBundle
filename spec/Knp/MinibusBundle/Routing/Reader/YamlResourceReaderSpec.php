@@ -25,9 +25,9 @@ class YamlResourceReaderSpec extends ObjectBehavior
     {
         $rawRoutes = [
             'route_name' => [
-                'pattern' => '/some/pattern',
-                'line'    => ['some station here'],
-                'terminus' => ['a terminus here'],
+                'pattern'  => '/some/pattern',
+                'line'     => ['station'    => 'config'],
+                'terminus' => ['a terminus' => ['some configuration']],
             ]
         ];
 
@@ -44,8 +44,8 @@ class YamlResourceReaderSpec extends ObjectBehavior
                 'defaults'     => [],
                 'requirements' => [],
                 'pattern'      => '/some/pattern',
-                'line'         => ['some station here'],
-                'terminus'     => ['a terminus here'],
+                'line'         => ['station'    => ['config']],
+                'terminus'     => ['a terminus' => ['some configuration']],
             ]
         ]);
     }
