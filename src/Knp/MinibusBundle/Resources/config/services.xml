@@ -23,6 +23,9 @@
         <!-- lines -->
         <parameter key="knp_minibus.line.class">Knp\Minibus\Simple\Line</parameter>
         <parameter key="knp_minibus.line.http_line_launcher.class">Knp\MinibusBundle\Line\HttpLineLauncher</parameter>
+
+        <!-- event listeners -->
+        <parameter key="knp_minibus.event_listener.passenger_resolver_listener.class">Knp\MinibusBundle\EventListener\PassengerResolverListener</parameter>
     </parameters>
 
     <services>
@@ -80,6 +83,13 @@
             <argument type="service" id="knp_minibus.station_registry" />
             <argument type="service" id="knp_minibus.terminus_registry" />
             <argument type="service" id="knp_minibus.line" />
+        </service>
+
+        <!-- event listeners -->
+        <service id="knp_minibus.event_listener.passenger_resolver_listener" class="%knp_minibus.event_listener.passenger_resolver_listener.class%">
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="service_container" />
+            <tag name="kernel.event_listener" event="knp_minibus.start" method="resolveRequestPassengers" />
         </service>
     </services>
 
