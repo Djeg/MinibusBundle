@@ -7,7 +7,6 @@ use Knp\MinibusBundle\Finder\ClassFinder;
 use Knp\MinibusBundle\DependencyInjection\DefinitionFactory;
 use Knp\MinibusBundle\DependencyInjection\Compiler\RegisterTerminusPass;
 use Knp\MinibusBundle\DependencyInjection\Compiler\AutoRegisterStationPass;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
  * For SOLID principle convenient, and to disable any contributor to create
@@ -39,7 +38,7 @@ class CompilerPassFactory
      *
      * @return AutoRegisterStationPass
      */
-    public function createAutoStationRegistration(BundleInterface $bundle)
+    public function createAutoStationRegistration(Bundle $bundle)
     {
         return new AutoRegisterStationPass($bundle);
     }

@@ -5,7 +5,6 @@ namespace spec\Knp\MinibusBundle\DependencyInjection\Compiler;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class CompilerPassFactorySpec extends ObjectBehavior
 {
@@ -25,7 +24,7 @@ class CompilerPassFactorySpec extends ObjectBehavior
     }
 
     function it_create_auto_station_registration_pass(
-        BundleInterface $bundle
+        Bundle $bundle
     ) {
         $this->createAutoStationRegistration($bundle)->shouldHaveType('Knp\MinibusBundle\DependencyInjection\Compiler\AutoRegisterStationPass');
     }
