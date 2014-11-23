@@ -3,11 +3,11 @@
 namespace Knp\MinibusBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Knp\MinibusBundle\Finder\ClassFinder;
 use Knp\MinibusBundle\DependencyInjection\DefinitionFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Doctrine\Common\Inflector\Inflector;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Auto register all the station in a bundle namespace. By default it will look
@@ -38,7 +38,7 @@ class AutoRegisterStationPass implements CompilerPassInterface
      * @param DefinitionFactory $definitionFactory
      */
     public function __construct(
-        BundleInterface $bundle,
+        Bundle $bundle,
         ClassFinder $finder = null,
         DefinitionFactory $definitionFactory = null
     ) {
@@ -66,7 +66,7 @@ class AutoRegisterStationPass implements CompilerPassInterface
 
         foreach ($reflections as $reflection) {
             $alias       = $this->deduceStationAlias($reflection);
-            $serviceName = $this->deduceServiceName($bundleAlias, $this->bundle, $reflection);
+            $serviceName = $this->deduceServiceName($bundleAlias, $reflection);
 
             if ($container->hasDefinition($serviceName)) {
                 continue;
@@ -108,7 +108,7 @@ class AutoRegisterStationPass implements CompilerPassInterface
      *
      * @return string
      */
-    private function deduceBundleAlias(BundleInterface $bundle)
+    private function deduceBundleAlias(Bundle $bundle)
     {
         if (null !== $extension = $bundle->getContainerExtension()) {
             return $extension->getAlias();
@@ -119,12 +119,11 @@ class AutoRegisterStationPass implements CompilerPassInterface
 
     /**
      * @param string           $bundleAlias
-     * @param Bundle           $bundle
      * @param \ReflectionClass $reflection
      *
      * @return string
      */
-    private function deduceServiceName($bundleAlias, BundleInterface  $bundle, \ReflectionClass $reflection)
+    private function deduceServiceName($bundleAlias, \ReflectionClass $reflection)
     {
         $explodedName = explode('\\', $reflection->getName());
         $members      = [];
