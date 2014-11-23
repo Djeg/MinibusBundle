@@ -82,7 +82,8 @@ class YamlResourceReader
                 'host'         => null,
                 'scheme'       => null,
                 'defaults'     => [],
-                'requirements' => []
+                'requirements' => [],
+                'passengers'   => []
             ])
             ->setAllowedTypes([
                 'pattern'       => 'string',
@@ -94,7 +95,8 @@ class YamlResourceReader
                 'host'         => ['string', 'null'],
                 'scheme'       => ['string', 'null'],
                 'defaults'     => 'array',
-                'requirements' => 'array'
+                'requirements' => 'array',
+                'passengers'   => 'array'
             ])
             ->setNormalizers([
                 'line' => function (Options $options, $lines) {
@@ -129,6 +131,13 @@ class YamlResourceReader
                     }
 
                     return [$terminusName => $config];
+                },
+                'passengers' => function (Options $options, $passengers) {
+                    if (!is_array($passengers)) {
+                        return [$passengers => ''];
+                    }
+
+                    return $passengers;
                 }
             ])
         ;

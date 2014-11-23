@@ -17,10 +17,11 @@ class DefaultsMapper implements RouteMapper
     public function map($routeName, array $attributes, Route $route)
     {
         $defaults = [
-            '_line'                   => $attributes['line'],
-            '_terminus'               => $attributes['terminus'],
-            '_format'                 => $attributes['format'],
-            '_controller'             => 'knp_minibus.line.http_line_launcher:launch'
+            '_line'       => $attributes['line'],
+            '_terminus'   => $attributes['terminus'],
+            '_format'     => $attributes['format'],
+            '_passengers' => $attributes['passengers'],
+            '_controller' => 'knp_minibus.line.http_line_launcher:launch'
         ];
 
         $route->setDefaults(array_merge($attributes['defaults'], $defaults));

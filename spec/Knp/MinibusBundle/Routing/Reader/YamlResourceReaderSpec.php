@@ -43,6 +43,7 @@ class YamlResourceReaderSpec extends ObjectBehavior
                 'scheme'       => null,
                 'defaults'     => [],
                 'requirements' => [],
+                'passengers'   => [],
                 'pattern'      => '/some/pattern',
                 'line'         => ['station'    => ['config']],
                 'terminus'     => ['a terminus' => ['some configuration']],

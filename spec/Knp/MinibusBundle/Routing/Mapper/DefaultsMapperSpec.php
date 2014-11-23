@@ -25,6 +25,7 @@ class DefaultsMapperSpec extends ObjectBehavior
             '_line'       => ['some line'],
             '_terminus'   => ['some terminus'],
             '_format'     => 'html',
+            '_passengers' => ['some' => 'passengers'],
             'foo'         => 'bar'
         ])->shouldBeCalled();
 
@@ -34,7 +35,8 @@ class DefaultsMapperSpec extends ObjectBehavior
             'format' => 'html',
             'defaults' => [
                 'foo' => 'bar'
-            ]
+            ],
+            'passengers' => ['some' => 'passengers'],
         ], $route);
     }
 }
