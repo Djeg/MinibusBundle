@@ -8,6 +8,7 @@ use Knp\MinibusBundle\Exception\MisstatedRouteException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
+use Knp\MinibusBundle\Routing\Options\RoutingOptionsResolver;
 
 /**
  * It read a yaml routing ressource and also resolve the content.
@@ -27,13 +28,23 @@ class YamlResourceReader
     private $parser;
 
     /**
-     * @param BundlePathResolver $pathResolver
-     * @param YamlParser         $parser
+     * @var RoutingOptionsResolver $resolver
      */
-    public function __construct(BundlePathResolver $pathResolver, YamlParser $parser = null)
-    {
+    private $resolver;
+
+    /**
+     * @param BundlePathResolver     $pathResolver
+     * @param YamlParser             $parser
+     * @param RoutingOptionsResolver $resolver
+     */
+    public function __construct(
+        BundlePathResolver     $pathResolver,
+        YamlParser             $parser = null,
+        RoutingOptionsResolver $resolver = null
+    ) {
         $this->pathResolver = $pathResolver;
         $this->parser       = $parser ?: new YamlParser;
+        $this->resolver     = $resolver ?: new RoutingOptionsResolver;
     }
 
     /**
@@ -53,7 +64,7 @@ class YamlResourceReader
 
         foreach ($rawRoutes as $name => $attributes) {
             try {
-                $validatedAttributes = $this->validateAttributes($attributes);
+                $validatedAttributes = $this->resolver->resolve($attributes);
             } catch (\Exception $reason) {
                 throw new MisstatedRouteException($name, $reason);
             }
@@ -62,86 +73,5 @@ class YamlResourceReader
         }
 
         return $routes;
-    }
-
-    /**
-     * @param array $attributes
-     *
-     * @return array resolved attributes
-     */
-    private function validateAttributes(array $attributes)
-    {
-        $resolver = new OptionsResolver;
-
-        $resolver
-            ->setRequired(['pattern', 'line', 'terminus'])
-            ->setDefaults([
-                'method'       => 'GET',
-                'format'       => 'html',
-                'condition'    => null,
-                'host'         => null,
-                'scheme'       => null,
-                'defaults'     => [],
-                'requirements' => [],
-                'passengers'   => []
-            ])
-            ->setAllowedTypes([
-                'pattern'       => 'string',
-                'line'         => 'array',
-                'terminus'     => 'array',
-                'method'       => ['string', 'array'],
-                'format'       => 'string',
-                'condition'    => ['string', 'null'],
-                'host'         => ['string', 'null'],
-                'scheme'       => ['string', 'null'],
-                'defaults'     => 'array',
-                'requirements' => 'array',
-                'passengers'   => 'array'
-            ])
-            ->setNormalizers([
-                'line' => function (Options $options, $lines) {
-                    if (!is_array($lines)) {
-                        return [$lines => []];
-                    }
-
-                    $normalizedLine = [];
-
-                    foreach ($lines as $name => $configuration) {
-                        $normalizedLine[$name] = is_array($configuration) ?
-                            $configuration :
-                            (array)$configuration
-                        ;
-                    }
-
-                    return $normalizedLine;
-                },
-                'terminus' => function (Options $option, $terminus) {
-                    if (!is_array($terminus)) {
-                        throw new InvalidArgumentException('A terminus must be an array.');
-                    }
-
-                    $terminusName = null;
-                    $config       = null;
-                    foreach ($terminus as $name => $configuration) {
-                           $terminusName = $name;
-                           $config       = is_array($configuration) ?
-                               $configuration :
-                               []
-                           ;
-                    }
-
-                    return [$terminusName => $config];
-                },
-                'passengers' => function (Options $options, $passengers) {
-                    if (!is_array($passengers)) {
-                        return [$passengers => ''];
-                    }
-
-                    return $passengers;
-                }
-            ])
-        ;
-
-        return $resolver->resolve($attributes);
     }
 }
