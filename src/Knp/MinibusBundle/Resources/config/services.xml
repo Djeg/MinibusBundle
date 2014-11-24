@@ -24,6 +24,11 @@
         <parameter key="knp_minibus.line.class">Knp\Minibus\Simple\Line</parameter>
         <parameter key="knp_minibus.line.http_line_launcher.class">Knp\MinibusBundle\Line\HttpLineLauncher</parameter>
 
+        <!-- passenger resolvers -->
+        <parameter key="knp_minibus.resolver.service_passenger_resolver.class">Knp\MinibusBundle\Resolver\ServicePassengerResolver</parameter>
+        <parameter key="knp_minibus.resolver.class_passenger_resolver.class">Knp\MinibusBundle\Resolver\ClassPassengerResolver</parameter>
+        <parameter key="knp_minibus.resolver.argument_resolver.class">Knp\MinibusBundle\Resolver\ArgumentResolver</parameter>
+
         <!-- event listeners -->
         <parameter key="knp_minibus.event_listener.passenger_resolver_listener.class">Knp\MinibusBundle\EventListener\PassengerResolverListener</parameter>
     </parameters>
@@ -85,11 +90,28 @@
             <argument type="service" id="knp_minibus.line" />
         </service>
 
+        <!-- passenger resolvers -->
+        <service id="knp_minibus.resolver.argument_resolver" class="%knp_minibus.resolver.argument_resolver.class%" public="false">
+            <argument type="service" id="service_container" />
+        </service>
+        <service id="knp_minibus.resolver.class_passenger_resolver" class="%knp_minibus.resolver.class_passenger_resolver.class%" public="false">
+            <argument type="service" id="knp_minibus.resolver.argument_resolver" />
+        </service>
+        <service id="knp_minibus.resolver.service_passenger_resolver" class="%knp_minibus.resolver.service_passenger_resolver.class%" public="false">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="knp_minibus.resolver.argument_resolver" />
+        </service>
+
         <!-- event listeners -->
         <service id="knp_minibus.event_listener.passenger_resolver_listener" class="%knp_minibus.event_listener.passenger_resolver_listener.class%">
             <argument type="service" id="request_stack" />
-            <argument type="service" id="service_container" />
             <tag name="kernel.event_listener" event="knp_minibus.start" method="resolveRequestPassengers" />
+            <call method="addResolver">
+                <argument type="service" id="knp_minibus.resolver.service_passenger_resolver" />
+            </call>
+            <call method="addResolver">
+                <argument type="service" id="knp_minibus.resolver.class_passenger_resolver" />
+            </call>
         </service>
     </services>
 
