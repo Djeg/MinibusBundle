@@ -20,7 +20,7 @@ class ServicePassengerResolver implements Resolver
     /**
      * @var ArgumentResolver $resolver
      */
-    private $argumentResolver;
+    private $resolver;
 
     /**
      * @param ContainerInterface $container
