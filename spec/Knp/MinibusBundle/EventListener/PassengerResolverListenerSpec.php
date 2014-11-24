@@ -10,12 +10,13 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Knp\Minibus\Event\StartEvent;
 use Knp\Minibus\Minibus;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\MinibusBundle\Resolver\Resolver;
 
 class PassengerResolverListenerSpec extends ObjectBehavior
 {
-    function let(RequestStack $stack, ContainerInterface $container)
+    function let(RequestStack $stack)
     {
-        $this->beConstructedWith($stack, $container);
+        $this->beConstructedWith($stack);
     }
 
     function it_is_initializable()
@@ -25,22 +26,31 @@ class PassengerResolverListenerSpec extends ObjectBehavior
 
     function it_resolve_passengers_stored_in_the_request_attributes(
         $stack,
-        $container,
         Request $request,
         ParameterBag $attributes,
         StartEvent $event,
-        Minibus $minibus
+        Minibus $minibus,
+        Resolver $firstResolver,
+        Resolver $secondResolver
     ) {
-        $event->getMinibus()->willReturn($minibus);
         $stack->getCurrentRequest()->willReturn($request);
         $request->attributes = $attributes;
+        $event->getMinibus()->willReturn($minibus);
 
         $attributes->get('_passengers', [])->willReturn([
             'foo' => 'bar'
         ]);
 
-        $minibus->addPassenger('foo', 'bar')->shouldBeCalled();
-        $attributes->set('foo', 'bar')->shouldBeCalled();
+        $this->addResolver($firstResolver);
+        $this->addResolver($secondResolver);
+
+        $firstResolver->supports('bar', $request)->willReturn(false);
+        $secondResolver->supports('bar', $request)->willReturn(true);
+        $firstResolver->resolve('bar', $request)->shouldNotBeCalled();
+        $secondResolver->resolve('bar', $request)->willReturn('resolved');
+
+        $minibus->addPassenger('foo', 'resolved')->shouldBeCalled();
+        $attributes->set('foo', 'resolved')->shouldBeCalled();
 
         $this->resolveRequestPassengers($event);
     }
