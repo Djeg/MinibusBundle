@@ -62,6 +62,8 @@ class YamlResourceReader
         $rawRoutes = $this->parser->parse($path);
         $routes    = [];
 
+        $rawRoutes = is_array($rawRoutes) ? $rawRoutes : (array)$rawRoutes;
+
         foreach ($rawRoutes as $name => $attributes) {
             try {
                 $validatedAttributes = $this->resolver->resolve($attributes);

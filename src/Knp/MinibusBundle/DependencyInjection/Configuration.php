@@ -18,9 +18,6 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder;
-        $root        = $treeBuilder->root('knp_minibus');
-
-        return $treeBuilder;
+        return new TreeBuilder;
     }
 }

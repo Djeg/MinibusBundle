@@ -57,8 +57,6 @@ class KnpMinibusExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $config = $this->processor->processConfiguration($this->configuration, $configs);
-
         $locator = $this->locatorFactory->create(sprintf('%s/../Resources/config', __DIR__));
         $loader = $this->loaderFactory->create($container, $locator);
 
