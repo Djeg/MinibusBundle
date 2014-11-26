@@ -26,13 +26,16 @@ class MinibusBundleSpec extends ObjectBehavior
         $this->shouldHaveType('Symfony\Component\HttpKernel\Bundle\Bundle');
     }
 
-    function it_register_the_auto_station_registration_pass(
+    function it_register_the_auto_station_and_terminus_registration_pass(
         $passFactory,
-        CompilerPassInterface $pass,
+        CompilerPassInterface $pass1,
+        CompilerPassInterface $pass2,
         ContainerBuilder $container
     ) {
-        $passFactory->createAutoStationRegistration($this)->willReturn($pass);
-        $container->addCompilerPass($pass)->shouldBeCalled();
+        $passFactory->createAutoStationRegistration($this)->willReturn($pass1);
+        $passFactory->createAutoTerminusRegistration($this)->willReturn($pass2);
+        $container->addCompilerPass($pass1)->shouldBeCalled();
+        $container->addCompilerPass($pass2)->shouldBeCalled();
 
         $this->build($container);
     }

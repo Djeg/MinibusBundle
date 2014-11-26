@@ -7,6 +7,7 @@ use Knp\MinibusBundle\Finder\ClassFinder;
 use Knp\MinibusBundle\DependencyInjection\DefinitionFactory;
 use Knp\MinibusBundle\DependencyInjection\Compiler\RegisterTerminusPass;
 use Knp\MinibusBundle\DependencyInjection\Compiler\AutoRegisterStationPass;
+use Knp\MinibusBundle\DependencyInjection\Compiler\AutoRegisterTerminusPass;
 
 /**
  * For SOLID principle convenient, and to disable any contributor to create
@@ -34,12 +35,22 @@ class CompilerPassFactory
     }
 
     /**
-     * @param BundleInterface $bundle
+     * @param Bundle $bundle
      *
      * @return AutoRegisterStationPass
      */
     public function createAutoStationRegistration(Bundle $bundle)
     {
         return new AutoRegisterStationPass($bundle);
+    }
+
+    /**
+     * @param Bundle $bundle
+     *
+     * @return AutoRegisterTerminusPass
+     */
+    public function createAutoTerminusRegistration(Bundle $bundle)
+    {
+        return new AutoRegisterTerminusPass($bundle);
     }
 }

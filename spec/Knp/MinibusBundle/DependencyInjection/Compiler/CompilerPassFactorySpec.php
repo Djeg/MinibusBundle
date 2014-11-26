@@ -28,4 +28,10 @@ class CompilerPassFactorySpec extends ObjectBehavior
     ) {
         $this->createAutoStationRegistration($bundle)->shouldHaveType('Knp\MinibusBundle\DependencyInjection\Compiler\AutoRegisterStationPass');
     }
+
+    function it_create_auto_terminus_registration_pass(
+        Bundle $bundle
+    ) {
+        $this->createAutoTerminusRegistration($bundle)->shouldHaveType('Knp\MinibusBundle\DependencyInjection\Compiler\AutoRegisterTerminusPass');
+    }
 }

@@ -132,5 +132,6 @@ the guide!
 - [stations and services](.doc/stations.md)
 - [The routing in details](.doc/routing.md)
 - [Understand terminus]('.doc/terminus.md')
+- [be safe, validate your stations]('.doc/stations_validation.md')
 - [Hack the minibus with events]('.doc/events.md')
 - [Create configurable stations]('.doc/configurable_stations.md')

@@ -33,5 +33,6 @@ class MinibusBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass($this->passFactory->createAutoStationRegistration($this));
+        $container->addCompilerPass($this->passFactory->createAutoTerminusRegistration($this));
     }
 }

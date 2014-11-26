@@ -3,20 +3,18 @@
 namespace Knp\MinibusBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Knp\MinibusBundle\Finder\ClassFinder;
 use Knp\MinibusBundle\DependencyInjection\DefinitionFactory;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Doctrine\Common\Inflector\Inflector;
+use Knp\MinibusBundle\Finder\ClassFinder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Knp\MinibusBundle\Utils\NamingStrategist;
 
 /**
- * Auto register all the station in a bundle namespace. By default it will look
- * on the bundleNamespace\Station recursively and auto register the stations.
+ * Auto register station of a bundle.
  *
  * @author David Jegat <david.jegat@gmail.com>
  */
-class AutoRegisterStationPass implements CompilerPassInterface
+class AutoRegisterTerminusPass implements CompilerPassInterface
 {
     /**
      * @var Bundle $bundle
@@ -34,13 +32,13 @@ class AutoRegisterStationPass implements CompilerPassInterface
     private $definitionFactory;
 
     /**
-     * @param Bundle            $bundle
-     * @param ClassFinder       $finder
+     * @param Bundle $bundle
+     * @param ClassFinder $finder
      * @param DefinitionFactory $definitionFactory
      */
     public function __construct(
-        Bundle $bundle,
-        ClassFinder $finder = null,
+        Bundle            $bundle,
+        ClassFinder       $finder = null,
         DefinitionFactory $definitionFactory = null
     ) {
         $this->bundle            = $bundle;
@@ -53,28 +51,28 @@ class AutoRegisterStationPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if ($container->hasParameter('knp_minibus.disable_station_auto_registration')) {
+        if ($container->hasParameter('knp_minibus.disable_terminus_auto_registration')) {
             return;
         }
 
         $reflections = $this->finder->findImplementation(
-            'Knp\Minibus\Station',
-            sprintf('%s/Station', $this->bundle->getPath()),
-            sprintf('%s\\Station', $this->bundle->getNamespace())
+            'Knp\Minibus\Terminus\Terminus',
+            sprintf('%s/Terminus', $this->bundle->getPath()),
+            sprintf('%s\\Terminus', $this->bundle->getNamespace())
         );
 
         foreach ($reflections as $reflection) {
-            $serviceId = NamingStrategist::servicify($reflection->getName(), $this->bundle, 'Station');
-            $alias     = NamingStrategist::stationify($reflection->getName(), $this->bundle);
+            $serviceId = NamingStrategist::servicify($reflection->getName(), $this->bundle, 'Terminus', true);
+            $alias     = NamingStrategist::terminusify($reflection->getName(), $this->bundle);
 
             if ($container->hasDefinition($serviceId)) {
                 continue;
             }
 
-            $definition  = $this->definitionFactory->create($reflection->getName());
+            $definition = $this->definitionFactory->create($reflection->getName());
 
-            $definition->addTag('knp_minibus.station', [
-                'alias' => $alias
+            $definition->addTag('knp_minibus.terminus', [
+                'alias' => $alias,
             ]);
 
             $container->setDefinition($serviceId, $definition);
