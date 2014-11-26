@@ -62,7 +62,7 @@ class AutoRegisterTerminusPass implements CompilerPassInterface
         );
 
         foreach ($reflections as $reflection) {
-            $serviceId = NamingStrategist::servicify($reflection->getName(), $this->bundle, 'Terminus', true);
+            $serviceId = NamingStrategist::servicify($reflection->getName(), $this->bundle, 'Terminus');
             $alias     = NamingStrategist::terminusify($reflection->getName(), $this->bundle);
 
             if ($container->hasDefinition($serviceId)) {

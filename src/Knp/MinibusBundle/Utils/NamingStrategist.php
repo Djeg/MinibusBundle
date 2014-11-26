@@ -113,8 +113,7 @@ class NamingStrategist
         return self::servicify(
             str_replace('\\Station\\', '\\', $station),
             $bundle,
-            'Station',
-            true
+            'Station'
         );
     }
 
@@ -140,8 +139,7 @@ class NamingStrategist
         return self::servicify(
             str_replace('\\Terminus\\', '\\', $terminus),
             $bundle,
-            'Terminus',
-            true
+            'Terminus'
         );
     }
 }
