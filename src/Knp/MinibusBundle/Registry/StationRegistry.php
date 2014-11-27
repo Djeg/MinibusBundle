@@ -11,7 +11,7 @@ use Knp\MinibusBundle\Exception\AlreadyRegisteredStationException;
  *
  * @author David Jegat <david.jegat@gmail.com>
  */
-class StationRegistry
+class StationRegistry implements \IteratorAggregate
 {
     /**
      * @var Station[] $registry
@@ -68,5 +68,13 @@ class StationRegistry
         }
 
         return $this->registry[$name];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->registry);
     }
 }

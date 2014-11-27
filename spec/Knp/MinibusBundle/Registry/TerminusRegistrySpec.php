@@ -13,6 +13,11 @@ class TerminusRegistrySpec extends ObjectBehavior
         $this->shouldHaveType('Knp\MinibusBundle\Registry\TerminusRegistry');
     }
 
+    function it_is_an_iterator()
+    {
+        $this->shouldHaveType('IteratorAggregate');
+    }
+
     function it_collect_named_terminus(Terminus $terminus)
     {
         $this->collect($terminus, 'some terminus');
@@ -36,5 +41,40 @@ class TerminusRegistrySpec extends ObjectBehavior
             ->shouldThrow('Knp\MinibusBundle\Exception\UnregisteredTerminusException')
             ->duringRetrieve('unexistent terminus')
         ;
+    }
+
+    function it_iterate_thrue_all_registered_terminus(
+        Terminus $terminus1,
+        Terminus $terminus2
+    ) {
+        $this->collect($terminus1, 'first_terminus');
+        $this->collect($terminus2, 'second_terminus');
+
+        $this->getIterator()->shouldIterateThrueTerminus([
+            'first_terminus'  => $terminus1,
+            'second_terminus' => $terminus2
+        ]);
+    }
+
+    function getMatchers()
+    {
+        return [
+            'iterateThrueTerminus' => function ($iterator, $terminus) {
+                $expectedKeys = array_keys($terminus);
+                $keys         = array_keys($iterator->getArrayCopy());
+
+                for ($i = 0; $i < count($expectedKeys); $i++) {
+                    if ($expectedKeys[$i] !== $keys[$i]) {
+                        return false;
+                    }
+
+                    if ($iterator[$keys[$i]] !== $terminus[$keys[$i]]) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        ];
     }
 }

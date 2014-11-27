@@ -11,7 +11,7 @@ use Knp\MinibusBundle\Exception\UnregisteredTerminusException;
  *
  * @author David Jegat <david.jegat@gmail.com>
  */
-class TerminusRegistry
+class TerminusRegistry implements \IteratorAggregate
 {
     /**
      * @var Terminus[] $registry
@@ -62,5 +62,13 @@ class TerminusRegistry
         }
 
         return $this->registry[$terminusName];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->registry);
     }
 }
