@@ -56,7 +56,7 @@ class AutoRegisterTerminusPass implements CompilerPassInterface
         }
 
         $reflections = $this->finder->findImplementation(
-            'Knp\Minibus\Terminus\Terminus',
+            'Knp\Minibus\Terminus',
             sprintf('%s/Terminus', $this->bundle->getPath()),
             sprintf('%s\\Terminus', $this->bundle->getNamespace())
         );

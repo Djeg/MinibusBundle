@@ -5,7 +5,7 @@ namespace Knp\MinibusBundle\Minibus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Knp\Minibus\Minibus;
-use Knp\Minibus\Http\HttpMinibus;
+use Knp\Minibus\Minibus\HttpMinibus;
 
 /**
  * Create different all the kind of minibus.

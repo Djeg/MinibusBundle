@@ -10,10 +10,10 @@ use Knp\MinibusBundle\Minibus\MinibusFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Knp\Minibus\Station;
-use Knp\Minibus\Http\HttpMinibus;
+use Knp\Minibus\Minibus\HttpMinibus;
 use Symfony\Component\HttpFoundation\Response;
 use Knp\MinibusBundle\Registry\TerminusRegistry;
-use Knp\Minibus\Terminus\Terminus;
+use Knp\Minibus\Terminus;
 
 class HttpLineLauncherSpec extends ObjectBehavior
 {

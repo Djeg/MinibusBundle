@@ -4,7 +4,7 @@ namespace spec\Knp\MinibusBundle\Registry;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Knp\Minibus\Terminus\Terminus;
+use Knp\Minibus\Terminus;
 
 class TerminusRegistrySpec extends ObjectBehavior
 {

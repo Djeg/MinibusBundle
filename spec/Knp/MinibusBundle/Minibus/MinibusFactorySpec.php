@@ -7,7 +7,7 @@ use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Knp\Minibus\Minibus;
-use Knp\Minibus\Http\HttpMinibus;
+use Knp\Minibus\Minibus\HttpMinibus;
 
 class MinibusFactorySpec extends ObjectBehavior
 {
@@ -16,7 +16,7 @@ class MinibusFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Knp\MinibusBundle\Minibus\MinibusFactory');
     }
 
-    function it_create_htp_minibus(Request $request)
+    function it_create_http_minibus(Request $request)
     {
         $this->createHttpMinibus($request)->shouldReturnHttpMinibusWith($request);
     }

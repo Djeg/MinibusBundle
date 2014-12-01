@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Knp\Minibus\Config\Configurable;
+use Knp\Minibus\Configurable;
 use Knp\MinibusBundle\Exception\UnregisteredStationException;
 use Symfony\Component\Config\Definition\Dumper\XmlReferenceDumper;
 use Symfony\Component\Config\Definition\Dumper\YamlReferenceDumper;
@@ -38,7 +38,7 @@ class DumpStationReferenceCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (null === $input->getArgument('station') ) {
-            $this->listStations($input, $output);
+            $this->listStations($output);
 
             return;
         }
@@ -50,7 +50,7 @@ class DumpStationReferenceCommand extends ContainerAwareCommand
                 ->get('knp_minibus.station_registry')
                 ->retrieve($station)
             ;
-        } catch (\Exception $e) {
+        } catch (UnregisteredStationException $e) {
             $output->writeln(sprintf(
                 '<error>No station named "%s" has been found :-(.</error>',
                 $input->getArgument('station')
@@ -94,10 +94,10 @@ class DumpStationReferenceCommand extends ContainerAwareCommand
         $output->writeln($dumper->dump($station->getConfiguration()));
     }
 
-    private function listStations(InputInterface $input, OutputInterface $output)
+    private function listStations(OutputInterface $output)
     {
         $table = $this->getHelper('table');
-        $table->setHeaders(['Terminus', 'Namespace', 'Configurable']);
+        $table->setHeaders(['Station', 'Namespace', 'Configurable']);
 
         $rows = [];
 

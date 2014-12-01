@@ -21,9 +21,10 @@
         <parameter key="knp_minibus.terminus.jms_serializer_terminus.class">Knp\Minibus\Terminus\JmsSerializerTerminus</parameter>
         <parameter key="knp_minibus.terminus.http_redirection_redirection.class">Knp\Minibus\Terminus\HttpRedirectionTerminus</parameter>
         <parameter key="knp_minibus.terminus.route_redirection_terminus.class">Knp\Minibus\Terminus\RouteRedirectionTerminus</parameter>
+        <parameter key="knp_minibus.terminus.http_wrapper_terminus.class">Knp\Minibus\Terminus\HttpWrapperTerminus</parameter>
 
         <!-- lines -->
-        <parameter key="knp_minibus.line.class">Knp\Minibus\Simple\Line</parameter>
+        <parameter key="knp_minibus.line.class">Knp\Minibus\Minibus\Line</parameter>
         <parameter key="knp_minibus.line.http_line_launcher.class">Knp\MinibusBundle\Line\HttpLineLauncher</parameter>
 
         <!-- passenger resolvers -->
@@ -73,20 +74,28 @@
         </service>
 
         <!-- default terminus -->
-        <service id="knp_minibus.terminus.twig_template_terminus" class="%knp_minibus.terminus.twig_template_terminus.class%" public="false">
+        <service id="knp_minibus.terminus.twig" class="%knp_minibus.terminus.twig_template_terminus.class%" public="false">
             <argument type="service" id="twig" />
             <tag name="knp_minibus.terminus" alias="twig" />
         </service>
-        <service id="knp_minibus.terminus.jms_serializer_terminus" class="%knp_minibus.terminus.jms_serializer_terminus.class%" public="false">
+        <service id="knp_minibus.terminus.jms_serializer" class="%knp_minibus.terminus.jms_serializer_terminus.class%" public="false">
             <argument type="service" id="jms_serializer" />
-            <tag name="knp_minibus.terminus" alias="serialize" />
+            <tag name="knp_minibus.terminus" alias="jms_serializer" />
         </service>
-        <service id="knp_minibus.terminus.http_redirection_terminus" class="%knp_minibus.terminus.http_redirection_redirection.class%" public="false">
+        <service id="knp_minibus.terminus.http_redirection" class="%knp_minibus.terminus.http_redirection_redirection.class%" public="false">
             <tag name="knp_minibus.terminus" alias="redirect" />
         </service>
-        <service id="knp_minibus.terminus.route_redirection_terminus" class="%knp_minibus.terminus.route_redirection_terminus.class%" public="false">
+        <service id="knp_minibus.terminus.route_redirection" class="%knp_minibus.terminus.route_redirection_terminus.class%" public="false">
             <argument type="service" id="router" />
             <tag name="knp_minibus.terminus" alias="redirect_to_route" />
+        </service>
+        <service id="knp_minibus.terminus.twig_response" class="%knp_minibus.terminus.http_wrapper_terminus.class%" public="false">
+            <argument type="service" id="knp_minibus.terminus.twig" />
+            <tag name="knp_minibus.terminus" alias="twig_response" />
+        </service>
+        <service id="knp_minibus.terminus.jms_serializer_response" class="%knp_minibus.terminus.http_wrapper_terminus.class%" public="false">
+            <argument type="service" id="knp_minibus.terminus.jms_serializer" />
+            <tag name="knp_minibus.terminus" alias="jms_serializer_response" />
         </service>
 
         <!-- lines -->

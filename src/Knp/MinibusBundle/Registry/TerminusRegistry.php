@@ -3,7 +3,7 @@
 namespace Knp\MinibusBundle\Registry;
 
 use Knp\MinibusBundle\Exception\AlreadyRegisteredTerminusException;
-use Knp\Minibus\Terminus\Terminus;
+use Knp\Minibus\Terminus;
 use Knp\MinibusBundle\Exception\UnregisteredTerminusException;
 
 /**

@@ -55,6 +55,6 @@ class ServicePassengerResolverSpec extends ObjectBehavior
             'service' => 'some_service',
             'method'  => 'createHttpMinibus',
             'arguments' => ['@request']
-        ], $request)->shouldHaveType('Knp\Minibus\Http\HttpMinibus');
+        ], $request)->shouldHaveType('Knp\Minibus\Minibus\HttpMinibus');
     }
 }

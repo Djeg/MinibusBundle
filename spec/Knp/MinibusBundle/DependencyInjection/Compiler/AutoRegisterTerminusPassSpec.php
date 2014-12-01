@@ -53,7 +53,7 @@ class AutoRegisterTerminusPassSpec extends ObjectBehavior
 
         $container->hasParameter('knp_minibus.disable_terminus_auto_registration')->willReturn(false);
         $finder->findImplementation(
-            'Knp\\Minibus\\Terminus\\Terminus',
+            'Knp\\Minibus\\Terminus',
             '/Vendor/SomeBundle/Terminus',
             'Vendor\\SomeBundle\\Terminus'
         )->willReturn([$reflection]);
