@@ -134,4 +134,4 @@ the guide!
 - [Understand terminus]('.doc/terminus.md')
 - [be safe, validate your stations]('.doc/stations_validation.md')
 - [Hack the minibus with events]('.doc/events.md')
-- [Create configurable stations]('.doc/configurable_stations.md')
+- [Create configurable stations and terminus]('.doc/configurable_stations_and_terminus.md')

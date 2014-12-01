@@ -84,6 +84,16 @@ This is some examples:
 
 Prefer to use long but **meaningfull** name and, of course you can also use namespaces.
 
+## Debuging stations
+
+You can list all available stations and there configuration with the following
+command:
+
+```shell
+$ php app/console knp_minibus:stations:dump-reference # List all the stations.
+$ php app/console knp_minibus:stations:dump-reference <station name> # Display a station detail.
+```
+
 ## Next part ?
 
 If you are okay with stations, let's talk about [routing](routing.md)
