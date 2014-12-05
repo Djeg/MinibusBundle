@@ -8,8 +8,6 @@ use Symfony\Component\OptionsResolver\Options;
 
 /**
  * Resolve a minibus routes options.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class RoutingOptionsResolver
 {

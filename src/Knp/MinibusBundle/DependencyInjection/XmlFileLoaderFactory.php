@@ -8,8 +8,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 /**
  * Create instance of an XmlFileLoader
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class XmlFileLoaderFactory
 {

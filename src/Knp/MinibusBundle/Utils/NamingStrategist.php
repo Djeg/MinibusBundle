@@ -7,13 +7,11 @@ use Doctrine\Common\Inflector\Inflector;
 
 /**
  * Group all the naming strategy of minibus into statical methods.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class NamingStrategist
 {
     /**
-     * This method will dotify a given namespace. For example the following 
+     * This method will dotify a given namespace. For example the following
      * namespace : Foo\Bar\BazClass will be transformed into foo.bar.baz_class.
      * You can precise a suffix to remove on the last member.
      *

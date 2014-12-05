@@ -6,8 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * A resolver can resolve given subject into something else.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 interface Resolver
 {

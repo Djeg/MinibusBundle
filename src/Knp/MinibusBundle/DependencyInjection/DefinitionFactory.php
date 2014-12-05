@@ -6,8 +6,6 @@ use Symfony\Component\DependencyInjection\Definition;
 
 /**
  * Create a dependency injection definition.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class DefinitionFactory
 {

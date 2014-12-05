@@ -12,8 +12,6 @@ use Knp\MinibusBundle\Routing\Options\RoutingOptionsResolver;
 
 /**
  * It read a yaml routing ressource and also resolve the content.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class YamlResourceReader
 {

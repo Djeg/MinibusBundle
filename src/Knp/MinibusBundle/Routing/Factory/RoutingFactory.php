@@ -7,8 +7,6 @@ use Symfony\Component\Routing\Route;
 
 /**
  * Easily create route and route collection.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class RoutingFactory
 {

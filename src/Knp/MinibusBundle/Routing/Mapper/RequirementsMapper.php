@@ -6,8 +6,6 @@ use Symfony\Component\Routing\Route;
 
 /**
  * Map the route requirements.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class RequirementsMapper implements RouteMapper
 {

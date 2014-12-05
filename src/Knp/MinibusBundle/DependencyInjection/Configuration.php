@@ -8,8 +8,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 /**
  * Configure the dependency injection component.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {

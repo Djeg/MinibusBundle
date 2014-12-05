@@ -14,8 +14,6 @@ use Symfony\Component\Config\Definition\Dumper\XmlReferenceDumper;
 
 /**
  * Dump available terminus or one terminus reference.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class DumpTerminusReferenceCommand extends ContainerAwareCommand
 {

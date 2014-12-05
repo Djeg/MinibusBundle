@@ -9,8 +9,6 @@ use Knp\MinibusBundle\Exception\UndefinedTerminusNameException;
 
 /**
  * Register tagged terminus into the terminus registry.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class RegisterTerminusPass implements CompilerPassInterface
 {

@@ -9,8 +9,6 @@ use Knp\MinibusBundle\Exception\UndefinedStationNameException;
 
 /**
  * Register tagged station into the station registry.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class RegisterStationPass implements CompilerPassInterface
 {

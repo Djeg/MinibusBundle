@@ -8,8 +8,6 @@ use Knp\MinibusBundle\Exception\UnregisteredTerminusException;
 
 /**
  * Collect terminus and retrieve it.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class TerminusRegistry implements \IteratorAggregate
 {

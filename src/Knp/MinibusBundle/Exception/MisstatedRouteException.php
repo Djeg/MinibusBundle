@@ -4,8 +4,6 @@ namespace Knp\MinibusBundle\Exception;
 
 /**
  * This exception happen during a parsing of a route that has been misstated.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class MisstatedRouteException extends \Exception
 {

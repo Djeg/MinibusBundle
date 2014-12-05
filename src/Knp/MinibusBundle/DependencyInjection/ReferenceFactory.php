@@ -6,8 +6,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Simply create a reference :)
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class ReferenceFactory
 {

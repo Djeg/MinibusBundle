@@ -11,8 +11,6 @@ use Knp\MinibusBundle\Routing\Mapper\RouteMapper;
 /**
  * Load a Minibus routing file. You can load an xml, yaml or php file in order
  * to defined your routing line informations.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class MinibusRoutingLoader implements LoaderInterface
 {

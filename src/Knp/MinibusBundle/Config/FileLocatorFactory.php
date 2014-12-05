@@ -6,8 +6,6 @@ use Symfony\Component\Config\FileLocator;
 
 /**
  * Create instance of FileLocator.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class FileLocatorFactory
 {

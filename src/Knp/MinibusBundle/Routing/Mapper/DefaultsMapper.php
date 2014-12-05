@@ -6,8 +6,6 @@ use Symfony\Component\Routing\Route;
 
 /**
  * Mapp the route defaults attributes.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class DefaultsMapper implements RouteMapper
 {

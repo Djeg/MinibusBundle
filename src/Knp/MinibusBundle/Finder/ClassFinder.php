@@ -6,8 +6,6 @@ use Symfony\Component\Finder\Finder;
 
 /**
  * Find easily all the classes inside a directory.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class ClassFinder
 {

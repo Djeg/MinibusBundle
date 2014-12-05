@@ -6,8 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Resolve a passenger as an array with the special 'class' key.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class ClassPassengerResolver implements Resolver
 {

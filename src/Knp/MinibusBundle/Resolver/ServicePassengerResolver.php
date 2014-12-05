@@ -7,8 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Resolve a given passenger as array into a service.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class ServicePassengerResolver implements Resolver
 {

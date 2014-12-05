@@ -11,8 +11,6 @@ use Knp\MinibusBundle\Utils\NamingStrategist;
 
 /**
  * Auto register station of a bundle.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class AutoRegisterTerminusPass implements CompilerPassInterface
 {

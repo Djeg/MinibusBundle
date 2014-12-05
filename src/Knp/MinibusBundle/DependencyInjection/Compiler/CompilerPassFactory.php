@@ -13,8 +13,6 @@ use Knp\MinibusBundle\DependencyInjection\Compiler\AutoRegisterTerminusPass;
  * For SOLID principle convenient, and to disable any contributor to create
  * compiler pass by hand, this factory can create any MinibusBundle compiler
  * pass.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class CompilerPassFactory
 {

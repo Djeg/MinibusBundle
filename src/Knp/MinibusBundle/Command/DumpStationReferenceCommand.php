@@ -14,8 +14,6 @@ use Symfony\Component\Config\Definition\Dumper\YamlReferenceDumper;
 
 /**
  * Dump all available stations or a specific station reference.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class DumpStationReferenceCommand extends ContainerAwareCommand
 {

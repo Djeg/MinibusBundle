@@ -6,8 +6,6 @@ use Symfony\Component\Routing\Route;
 
 /**
  * Map host, scheme and condition to the route.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class HostSchemeAndConditionMapper implements RouteMapper
 {

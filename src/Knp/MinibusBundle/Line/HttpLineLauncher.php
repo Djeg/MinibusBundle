@@ -11,8 +11,6 @@ use Knp\MinibusBundle\Registry\TerminusRegistry;
 
 /**
  * Create and launch an http line.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class HttpLineLauncher
 {

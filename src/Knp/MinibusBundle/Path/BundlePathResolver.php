@@ -6,8 +6,6 @@ use Knp\MinibusBundle\Reflection\ReflectionClassFactory;
 
 /**
  * Resolve a path for a given bundle name.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class BundlePathResolver
 {

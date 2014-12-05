@@ -9,8 +9,6 @@ use Knp\Minibus\Minibus\HttpMinibus;
 
 /**
  * Create different all the kind of minibus.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class MinibusFactory
 {

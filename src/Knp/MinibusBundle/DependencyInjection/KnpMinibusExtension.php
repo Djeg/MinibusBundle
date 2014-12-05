@@ -9,8 +9,6 @@ use Knp\MinibusBundle\Config\FileLocatorFactory;
 
 /**
  * Knp Minibus dependency injection extension.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class KnpMinibusExtension extends Extension
 {

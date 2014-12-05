@@ -8,8 +8,6 @@ use Knp\MinibusBundle\Exception\AlreadyRegisteredStationException;
 
 /**
  * A simple registry for all the defined stations.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class StationRegistry implements \IteratorAggregate
 {

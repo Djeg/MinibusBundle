@@ -12,8 +12,6 @@ use Knp\MinibusBundle\Resolver\Resolver;
 /**
  * Launched on the LineEvents::START, it resolved stored passengers in the
  * request attributes.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class PassengerResolverListener
 {

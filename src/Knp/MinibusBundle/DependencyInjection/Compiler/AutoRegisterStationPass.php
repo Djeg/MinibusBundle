@@ -13,8 +13,6 @@ use Knp\MinibusBundle\Utils\NamingStrategist;
 /**
  * Auto register all the station in a bundle namespace. By default it will look
  * on the bundleNamespace\Station recursively and auto register the stations.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class AutoRegisterStationPass implements CompilerPassInterface
 {

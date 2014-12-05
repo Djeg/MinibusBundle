@@ -10,8 +10,6 @@ use Knp\MinibusBundle\DependencyInjection\Compiler\CompilerPassFactory;
  * This bundle is the entry point of a minibus application. You can use
  * minibus witheout inherit from this bundle, but for some "shortcuts" like
  * auto station registrations etc, you must inherit from this bundle.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class MinibusBundle extends Bundle
 {

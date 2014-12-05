@@ -7,8 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Resolve an argument for a given passenger definition.
- *
- * @author David Jegat <david.jegat@gmail.com>
  */
 class ArgumentResolver implements Resolver
 {
