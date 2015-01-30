@@ -22,7 +22,7 @@ with **view**. Their responsability will just be to change, retrieve a given
 Install the bundle:
 
 ```
-$ php composer.phar require knplabs/minibus-bundle
+$ php composer.phar require knplabs/knp-minibus-bundle
 ```
 
 Update your `AppKernel`:
