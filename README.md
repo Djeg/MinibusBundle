@@ -10,11 +10,11 @@ for Symfony2 applications.
 
 ## A Minibus, but why ?
 
-Minibus is a standalone **PHP 5.4** library that allowing you to decouple your
-applications responsability and actions into plural **stations**. The main goal
-is to create **meainingfull controller** and **limit their responsability**. For
-example With Minibus, your **application entry points** has nothing to do
-with **view**. Their responsability will just be to change, retrieve a given
+Minibus is a standalone **PHP 5.4** library which allows you to decouple your
+application responsabilities and actions into plural **stations**. The main goal
+is to create **meaningful controllers** and **limit their responsabilities**. For
+example with Minibus, your **application entry points** have nothing to do
+with the **view**. Their responsability will only be to change and retrieve a given
 **state**.
 
 ## Installation
@@ -28,6 +28,7 @@ $ php composer.phar require knplabs/knp-minibus-bundle
 Update your `AppKernel`:
 
 ```php
+// app/AppKernel.php
 $bundles = [
     // ...
     new Knp\MinibusBundle\KnpMinibusBundle,
@@ -36,7 +37,7 @@ $bundles = [
 
 ## Quick view
 
-You was waiting for a demonstration, here we are!
+You were waiting for a demonstration, here it is!
 
 ### Create a MinibusBundle
 
@@ -64,7 +65,7 @@ $bundles = [
 
 ### Create stations
 
-Stations are like controllers, except that you can launch as many stations you
+Stations are like controllers, except that you can launch as many stations as you
 want during one **action** and the station **does not handle any kind of view**.
 In fact the only role of a station is to create/retrieve/update `Minibus` passengers.
 (understand data).
@@ -90,8 +91,8 @@ class UsernameStation implements Station
 
 ### Routing
 
-MinibusBundle comes with a complete yaml routing syntax that allow you to easily
-create **line**. Once you get some stations ready to be used you can load
+MinibusBundle comes with a complete yaml routing syntax that allows you to easily
+create a **line**. Once you get some stations ready to be used you can load
 a minibus routing:
 
 ```yaml
@@ -102,7 +103,7 @@ app:
     prefix: /
 ```
 
-Here came the routing:
+Here comes the routing:
 
 ```yaml
 app_some_action:
@@ -114,7 +115,7 @@ app_some_action:
         app.magic: ~
     terminus:
         twig:
-            template: "AppBundle::some.html.twig"
+            template: "App::some.html.twig"
     passengers:
         magic_man:
             service: some_service_id
@@ -123,15 +124,16 @@ app_some_action:
 
 ## Give it a try!
 
-Last word before many lines of documentation : **Give it a try!**. Of course
-if you want a complete documentation of this bundle you just have to follow
+That's pretty it. **Give it a try!**.
+
+Of course if you want a complete documentation of this bundle you just have to follow
 the guide!
 
 ## Get more!
 
-- [stations and services](.doc/stations.md)
+- [Stations and services](.doc/stations.md)
 - [The routing in details](.doc/routing.md)
-- [Understand terminus](.doc/terminus.md)
-- [be safe, validate your stations](.doc/stations_validation.md)
+- [Understand what is a terminus](.doc/terminus.md)
+- [Drive safely, validate your stations](.doc/stations_validation.md)
 - [Hack the minibus with events](.doc/events.md)
 - [Create configurable stations and terminus](.doc/configurable_stations_and_terminus.md)
