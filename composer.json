@@ -19,8 +19,7 @@
     "require-dev": {
         "phpspec/phpspec": "*",
         "phpspec/nyan-formatters": "*",
-        "bossa/phpspec2-expect": "dev-master",
-        "docteurklein/funk-spec": "dev-master"
+        "bossa/phpspec2-expect": "dev-master"
     },
     "config": {
         "bin-dir": "bin"
