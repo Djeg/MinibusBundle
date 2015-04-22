@@ -24,7 +24,7 @@
         <parameter key="knp_minibus.terminus.http_wrapper_terminus.class">Knp\Minibus\Terminus\HttpWrapperTerminus</parameter>
 
         <!-- lines -->
-        <parameter key="knp_minibus.line.class">Knp\Minibus\Minibus\Line</parameter>
+        <parameter key="knp_minibus.line.class">Knp\Minibus\Line\Line</parameter>
         <parameter key="knp_minibus.line.http_line_launcher.class">Knp\MinibusBundle\Line\HttpLineLauncher</parameter>
 
         <!-- passenger resolvers -->
