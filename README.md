@@ -114,7 +114,7 @@ app_some_action:
         app.magic: ~
     terminus:
         twig:
-            template: "@App::some.html.twig"
+            template: "AppBundle::some.html.twig"
     passengers:
         magic_man:
             service: some_service_id

@@ -39,7 +39,7 @@ some_route:
         my_bundle.clear_something: ~
     terminus:
         twig:
-            template: "@MyBundle::some_template.html.twig"
+            template: "MyBundle::some_template.html.twig"
 ```
 
 This routing file will create a route named `some_route` that will launch the
@@ -76,7 +76,7 @@ some_route:
         my_bundle.clear_something: ~
     terminus:
         twig:
-            template: "@MyBundle::some_template.html.twig"
+            template: "MyBundle::some_template.html.twig"
     passengers:
         plop: "Plip"
 ```
@@ -98,7 +98,7 @@ product_show:
         my_bundle.retrieve_basket: ~
     terminus:
         twig:
-            template: "@MyBundle::product_show.html.twig"
+            template: "MyBundle::product_show.html.twig"
     passengers:
         some_service:
             # will just inject the service
