@@ -1,8 +1,8 @@
 Hack the minibus with events
 ============================
 
-If for some reason you are interested on hacking your minibus line, you can do
-it easily with events.
+If for some reason you are interested in hacking your minibus line, you can easily do
+it with events.
 
 The minibus events are documented [here](https://github.com/Djeg/Minibus/blob/master/.doc/deal_with_events.md).
 
@@ -38,8 +38,8 @@ services:
             - { name: kernel.event_listener, event: knp_minibus.start, method: onLineStart }
 ```
 
-That's it! Every stations in your minibus will get an `inspector` passenger !
+That's it! Every station in your minibus will get an `inspector` passenger!
 
-## What next ?
+## What next?
 
-The last section is about [configuration](configurable_stations_and_terminus.md).
+Last section is about [configuration](configurable_stations_and_terminus.md).

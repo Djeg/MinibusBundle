@@ -1,17 +1,17 @@
 Stations and services
 =====================
 
-Once you have registered a Bundle has as a `Knp\MinibusBundle\Bundle\MinibusBundle`
-instance you can easily create station by following this convention:
+Once you have registered a Bundle as a `Knp\MinibusBundle\Bundle\MinibusBundle`
+instance you can easily create a station thanks to this convention:
 
 
-All stations should be located under `BundleNamespace\Station` and must implements
+All stations must be located under `BundleNamespace\Station` and implement
 `Knp\Minibus\Station`.
 
 
 ## Auto registration
 
-All the station located under the namespace `BundleNamespace\Station` is
+Every station located under the namespace `BundleNamespace\Station` is
 automatically registered as a **station service**. To start using a station
 inside your routing file you must follow this convention:
 
@@ -21,12 +21,12 @@ conventionaly the bundle name witheout namespace or the
 `bundle::getContainerExtension()::getAlias()`).
 
 
-A station is alays registered as a service but the alias is sensibly different
+A station is always registered as a service but the alias is sensibly different
 than the routing one. For example a station located under
 `BundleNamespace\Station\SomeStation` will be declared as a service with the
 alias `bundle_alias.station.some`.
 
-This is some exemple of basic stations naming:
+These are some examples of basic stations naming:
 
 | Station namespace                         | Station alias        | Station service id           |
 | ----------------------------------------- | -------------------- | ---------------------------- |
@@ -34,10 +34,11 @@ This is some exemple of basic stations naming:
 | `Vendor\MyBundle\Station\TestStation`     | `vendor_my.test`     | `vendor_my.station.test`     |
 | `Vendor\MyBundle\Station\Sub\TestStation` | `vendor_my.sub.test` | `vendor_my.station.sub.test` |
 
-## Register a station manualy
+## Register a station manually
 
-You can regster a station manualy inside the container by declaring it as a
-service but, please respect the convention listed above.
+You can register a station manually inside the container by declaring it as a
+service, hence, you are free to call it as you want. However, a good practice is to
+respect the convention listed above.
 
 ```yaml
 # services.yml
@@ -50,30 +51,30 @@ services:
             - { name: knp_minibus.station, alias: vendor_my.test }
 ```
 
-## Some good practice
+## Some good practices
 
-### What about retrieve the `Request` ?
+### What about retrieving the `Request` ?
 
-Basicaly when a station handle a `Minibus` the given minibus is an instance of
-`Knp\Minibus\Http\HttpMinibus` so you can retrieve `Request` and `Response` easily:
+Basically when a station handles a `Minibus`, the given minibus is an instance of
+`Knp\Minibus\Http\HttpMinibus` so you can easily retrieve `Request` and `Response`:
 
 ```php
 $minibus->getRequest();
 $minibus->getResponse();
 ```
 
-**NOTE**: This is not a good practice to use directly the request, but sometimes it's
-needed :/. See the next chapter about routing to get and idea on how to retrieve
-request informations witheout injecting it.
+**NOTE**: This is not a good practice to use directly the request, but sometimes it can be convenient.
+See the next chapter about routing to get ideas on how to retrieve
+request informations without injecting it.
 
 ### What is a *good* station ?
 
-A good station is a station that respect those 2 rules:
+A good station is a station that respects those two simple rules:
 
-- **Do one thing**
-- **Meaningfull**
+- **Do only one thing**
+- **Meaningful**
 
-This is some examples:
+Here are some examples:
 
 | Good one                               | Bad one                                                                 |
 | -------------------------------------- | ----------------------------------------------------------------------- |
@@ -82,18 +83,18 @@ This is some examples:
 | `HandleProductSearchFormStation`       | `SearchFormStation` (even `ProductSearchFormStation` is not that good)` |
 | `GiveMeTheTrendingProductPriceStation` | `TrendingProductStation`                                                |
 
-Prefer to use long but **meaningfull** name and, of course you can also use namespaces.
+Prefer to use long but **meaningful** names and, of course remember you can also use namespaces.
 
-## Debuging stations
+## Debugging stations
 
-You can list all available stations and there configuration with the following
+You can list all available stations and their configuration with the following
 command:
 
 ```shell
-$ php app/console knp_minibus:stations:dump-reference # List all the stations.
-$ php app/console knp_minibus:stations:dump-reference <station name> # Display a station detail.
+$ php app/console knp_minibus:station:dump-reference # Lists all the stations.
+$ php app/console knp_minibus:station:dump-reference <station name> # Displays a station detail.
 ```
 
 ## Next part ?
 
-If you are okay with stations, let's talk about [routing](routing.md)
+If you are okay with stations, let's talk about [routing](routing.md)!

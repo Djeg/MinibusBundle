@@ -1,7 +1,7 @@
 Create configurable stations and terminus
 =========================================
 
-You can defined **configurable stations and terminus**. For example, in your
+You can define **configurable stations and terminus**. For example, in your
 routing file:
 
 ```yaml
@@ -16,7 +16,7 @@ my_route:
             # terminus configuration here
 ```
 
-In order to use this configuration you just ahve to take a look on the second
+In order to use this configuration you just have to take a look on the second
 argument of the methods inside `Knp\Minibus\Station` and `Knp\Minibus\Terminus`.
 
 This is an example with a terminus:
@@ -29,7 +29,7 @@ use Knp\Minibus\Minibus;
 
 class MyStation implements Station
 {
-    public function handle(Minibus $minibus, array $configuration)
+    public function handle(Minibus $minibus, array $configuration = [])
     {
         $someConfig = $configuration['some_key'];
     }
@@ -38,7 +38,7 @@ class MyStation implements Station
 
 ## Define cute configuration tree ^.^
 
-If you want to define a complete accepted configuration tree for your stations
-and terminus, like you can see by using the commmand 
-`php app/console knp_minibus:stations:dump-reference twig` you can take
-a look on the [dedicated documentation](https://github.com/Djeg/Minibus/blob/master/.doc/configure_your_stations_and_terminus.md).
+If you want to define a complete configuration tree for your stations
+and terminus, so you can see it by using the commmand 
+`php app/console knp_minibus:station:dump-reference twig` you can take
+a look at the [dedicated documentation](https://github.com/Djeg/Minibus/blob/master/.doc/configure_your_stations_and_terminus.md).

@@ -1,7 +1,7 @@
-The routing in details
-======================
+Routing in details
+==================
 
-Minibus bundle cames with a new yaml routing syntax.
+Minibus bundle comes with a new yaml routing syntax.
 
 ## Import a minibus routing
 
@@ -23,10 +23,10 @@ You can import as many routing files you want.
 In order to create a route you must specify some basics:
 
 - A `pattern`
-- A `line`, it's the suit of stations with optional configuration
-- A `terminus`, defined how the `Minibus` will be rendered at the end.
+- A `line` (a succession of stations with optional configuration)
+- A `terminus` (defines how the `Minibus` will be rendered at the end)
 
-This is a basic exemple:
+This is a basic example:
 
 ```yaml
 # src/MyBundle/Resources/config/routing.yml
@@ -42,26 +42,26 @@ some_route:
             template: "MyBundle::some_template.html.twig"
 ```
 
-This routing file will create a route named `some_route` that will launch the
+This routing file will create a route called `some_route` that will launch the
 following stations:
 
 1. `my_bundle.fetch_something`
 2. `my_bundle.handle_some_form` with the configuration `{"config_key": "config_value"}`
 3. `my_bundle.clear_something`
 
-Finaly, this route will terminate by a **twig template** located under
+Eventually, this route will end by a **twig template** located under
 `src/MyBundle/Resources/views/some_template.html.twig`. This template can
 access to **all the passengers defined in the minibus**. for example if the
-station `my_bundle.fetch_something` register a passenger `something` in the
-minibus, you can easily access to this passenger in twig with `{{ something }}`.
+station `my_bundle.fetch_something` registers a passenger `something` in the
+minibus, you can easily access this passenger in twig with `{{ something }}`.
 
 
-A complete **terminus references** can be found on the next chapter of this
+A complete **terminus reference** can be found in the next chapter of this
 documentation ;).
 
-## Defined default passengers
+## Define default passengers
 
-This routing syntax cames with a *default passenger resolver*. It means that
+This routing syntax comes with a *default passenger resolver*. It means that
 before your station is launched, you can specify some default passengers for
 your line:
 
@@ -81,8 +81,8 @@ some_route:
         plop: "Plip"
 ```
 
-Here you can access to the `plop` passenger easily in your station,
-you just have to ask the minibus: `$minibus->getPassenger('plop')`.
+Here you can access the `plop` passenger easily in your station.
+Just ask the minibus: `$minibus->getPassenger('plop')`.
 
 ## Resolve default passengers
 
