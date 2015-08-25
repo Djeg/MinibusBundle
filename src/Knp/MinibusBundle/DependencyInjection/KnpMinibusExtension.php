@@ -59,6 +59,10 @@ class KnpMinibusExtension extends Extension
         $loader = $this->loaderFactory->create($container, $locator);
 
         $loader->load('services.xml');
+
+        if ($container->hasDefinition('jms_serializer')) {
+            $loader->load('services/jms_serializer.xml');
+        }
     }
 
     /**

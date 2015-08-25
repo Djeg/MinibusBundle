@@ -31,11 +31,16 @@ class ClassFinder
     public function find($path, $namespace)
     {
         $reflections = [];
-        $items       = $this->finder
-            ->files()
-            ->name('*.php')
-            ->in($path)
-        ;
+
+        try {
+            $items = $this->finder
+                ->files()
+                ->name('*.php')
+                ->in($path)
+            ;
+        } catch (\InvalidArgumentException $e) {
+            return $reflections;
+        }
 
         foreach ($items as $item) {
             $reflections[] = new \ReflectionClass(sprintf(
