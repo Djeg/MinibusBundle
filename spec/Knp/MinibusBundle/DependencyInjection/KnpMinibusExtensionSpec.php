@@ -49,6 +49,10 @@ class KnpMinibusExtensionSpec extends ObjectBehavior
 
         $loader->load('services.xml')->shouldBeCalled();
 
+        $container->hasDefinition('jms_serializer')->willReturn(true);
+
+        $loader->load('services/jms_serializer.xml')->shouldBeCalled();
+
         $this->load(['configuration'], $container);
     }
 }

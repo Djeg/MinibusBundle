@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 
 /**
- * The famous minibus in one bundle o_O.
+ * The famous minibus in one bundle. No way ... o_O
  */
 class KnpMinibusBundle extends Bundle
 {
