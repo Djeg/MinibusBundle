@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Doctrine\Common\Inflector\Inflector;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Knp\MinibusBundle\Utils\NamingStrategist;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Auto register all the station in a bundle namespace. By default it will look
@@ -74,6 +75,12 @@ class AutoRegisterStationPass implements CompilerPassInterface
             $definition->addTag('knp_minibus.station', [
                 'alias' => $alias
             ]);
+
+            if ($reflection->implementsInterface('Knp\MinibusBundle\Station\ContainerAwareStation')) {
+                $containerReference = new Reference('container');
+
+                $definition->addMethodCall('setContainer', [$containerReference]);
+            }
 
             $container->setDefinition($serviceId, $definition);
         }

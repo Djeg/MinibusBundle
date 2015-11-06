@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 class AutoRegisterStationPassSpec extends ObjectBehavior
 {
@@ -50,8 +51,16 @@ class AutoRegisterStationPassSpec extends ObjectBehavior
         ;
         $stationReflectionOne->getName()->willReturn('Some\\Bundle\\Station\\MyFirstStation');
         $stationReflectionOne->getShortName()->willReturn('MyFirstStation');
+        $stationReflectionOne
+            ->implementsInterface('Knp\MinibusBundle\Station\ContainerAwareStation')
+            ->willReturn(false)
+        ;
         $stationReflectionTwo->getName()->willReturn('Some\\Bundle\\Station\\Sub\\MySecondStation');
         $stationReflectionTwo->getShortName()->willReturn('MySecondStation');
+        $stationReflectionTwo
+            ->implementsInterface('Knp\MinibusBundle\Station\ContainerAwareStation')
+            ->willReturn(true)
+        ;
         $extension->getAlias()->willReturn('some_bundle');
 
         $container->hasDefinition('some_bundle.station.my_first')->willReturn(false);
@@ -62,6 +71,18 @@ class AutoRegisterStationPassSpec extends ObjectBehavior
 
         $firstDefinition->addTag('knp_minibus.station', ['alias' => 'some_bundle.my_first'])->shouldBeCalled();
         $secondDefinition->addTag('knp_minibus.station', ['alias' => 'some_bundle.sub.my_second'])->shouldBeCalled();
+
+        $secondDefinition->addMethodCall('setContainer', Argument::that(function ($args) {
+            if (!is_array($args)) {
+                return false;
+            }
+
+            if (!$args[0] instanceof Reference) {
+                return false;
+            }
+
+            return 'container' === (string)$args[0];
+        }))->shouldBeCalled();
 
         $container->setDefinition('some_bundle.station.my_first', $firstDefinition)->shouldBeCalled();
         $container->setDefinition('some_bundle.station.sub.my_second', $secondDefinition)->shouldBeCalled();

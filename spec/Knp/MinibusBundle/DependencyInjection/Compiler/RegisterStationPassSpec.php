@@ -37,6 +37,7 @@ class RegisterStationPassSpec extends ObjectBehavior
     function it_add_all_the_tagged_station_to_the_station_registry_definition(
         ContainerBuilder $container,
         Definition $definition,
+        Definition $stationDefinition,
         $referenceFactory,
         Reference $reference
     ) {
@@ -50,6 +51,17 @@ class RegisterStationPassSpec extends ObjectBehavior
         ]);
 
         $referenceFactory = $referenceFactory->create('some.station')->willReturn($reference);
+        $container->getDefinition('some.station')->willReturn($stationDefinition);
+
+        $stationDefinition->getClass()->willReturn('Knp\MinibusBundle\Station\ContainerAwareStation');
+        $stationDefinition->hasMethodCall('setContainer')->willReturn(false);
+        $stationDefinition->addMethodCall('setContainer', Argument::that(function ($args) {
+            if (!is_array($args) or !$args[0] instanceof Reference) {
+                return false;
+            }
+
+            return 'container' === (string)$args[0];
+        }))->shouldBeCalled();
 
         $definition->addMethodCall('collect', [
             $reference,
@@ -62,6 +74,7 @@ class RegisterStationPassSpec extends ObjectBehavior
     function it_throw_an_exception_when_a_tagged_station_has_no_name(
         ContainerBuilder $container,
         Definition $definition,
+        Definition $stationDefinition,
         $referenceFactory,
         Reference $reference
     ) {
@@ -71,6 +84,9 @@ class RegisterStationPassSpec extends ObjectBehavior
         $container->findTaggedServiceIds('knp_minibus.station')->willReturn([
             'some.station' => []
         ]);
+
+        $container->getDefinition('some.station')->willReturn($stationDefinition);
+        $stationDefinition->getClass()->willReturn('Knp\Minibus\Station');
 
         $this
             ->shouldThrow('Knp\MinibusBundle\Exception\UndefinedStationNameException')
