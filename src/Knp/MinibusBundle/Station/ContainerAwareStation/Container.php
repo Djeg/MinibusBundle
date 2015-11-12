@@ -2,6 +2,8 @@
 
 namespace Knp\MinibusBundle\Station\ContainerAwareStation;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * Help your station to deal with the container injection.
  */
@@ -22,5 +24,13 @@ trait Container
         $this->container = $container;
 
         return $this;
+    }
+
+    /**
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    public function getContainer()
+    {
+        return $this->container;
     }
 }

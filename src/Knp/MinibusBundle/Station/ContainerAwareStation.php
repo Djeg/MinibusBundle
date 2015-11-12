@@ -11,4 +11,8 @@ use Knp\Minibus\Station;
  */
 interface ContainerAwareStation extends Station, ContainerAwareInterface
 {
+    /**
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    public function getContainer();
 }
